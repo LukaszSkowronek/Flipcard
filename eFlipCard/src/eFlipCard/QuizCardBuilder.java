@@ -7,6 +7,9 @@ import java.util.ArrayList;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextArea;
@@ -60,12 +63,43 @@ public class QuizCardBuilder {
 		mainPanel.add(aScroller);
 		
 		mainPanel.add(nextButton);
+		nextButton.addActionListener(ActionEvent -> {
+			
+			QuizCard card = new QuizCard(question.getText(), answer.getText());
+			cardList.add(card);
+			clearCard();
+		});
 		
+		JMenuBar menuBar = new JMenuBar();
+		JMenu fileMenu = new JMenu("File");
+		JMenuItem newMenuItem = new JMenuItem("New");
+		JMenuItem saveMenuItem = new JMenuItem("Save");
+		newMenuItem.addActionListener(ActionEvent -> {
+			cardList.clear();
+			clearCard();
+		});
+		
+		saveMenuItem.addActionListener(ActionEvent -> {
+			QuizCard card = new QuizCard(question.getText(), answer.getText());
+			cardList.add(card);
+		});
+		
+		fileMenu.add(newMenuItem);
+		fileMenu.add(saveMenuItem);
+		menuBar.add(fileMenu);
+		
+		frame.setJMenuBar(menuBar);
 		frame.setVisible(true);
 		frame.setSize(600, 800);
 		frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
 		
 				
+	}
+
+	private void clearCard() {
+		question.setText("");
+		answer.setText("");
+		question.requestFocus();
 	}
 	
 
