@@ -2,9 +2,14 @@ package eFlipCard;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.io.BufferedWriter;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 
 import javax.swing.JButton;
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JMenu;
@@ -82,6 +87,10 @@ public class QuizCardBuilder {
 		saveMenuItem.addActionListener(ActionEvent -> {
 			QuizCard card = new QuizCard(question.getText(), answer.getText());
 			cardList.add(card);
+			
+			JFileChooser fileSave = new JFileChooser();
+			fileSave.showSaveDialog(frame);
+			saveFile(fileSave.getSelectedFile());
 		});
 		
 		fileMenu.add(newMenuItem);
@@ -96,7 +105,21 @@ public class QuizCardBuilder {
 				
 	}
 
-	private void clearCard() {
+	private void saveFile(File file) {
+		try(BufferedWriter writer = new BufferedWriter(new FileWriter(file))){
+			for(QuizCard card:cardList){
+				writer.write(card.getQuestion() + "/");
+				writer.write(card.getAnswer()+ "\n");
+			}
+		} catch (IOException e) {
+			System.out.println("Couldn't write the cardList out");
+	e.printStackTrace();
+}
+			
+			
+			
+}
+private void clearCard() {
 		question.setText("");
 		answer.setText("");
 		question.requestFocus();
