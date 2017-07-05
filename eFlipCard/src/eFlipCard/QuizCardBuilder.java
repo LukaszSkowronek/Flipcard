@@ -2,6 +2,7 @@ package eFlipCard;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -26,7 +27,11 @@ public class QuizCardBuilder {
 	private JTextArea answer;
 	private ArrayList<QuizCard> cardList;
 	private JFrame frame;
-
+	private JButton cardPlay;
+	private JButton nextButton;
+	private QuizCardBuilder builder;
+	private QuizCardPlayer cardPlayer;
+	
 	public static void main(String[] args) {
 		QuizCardBuilder builder = new QuizCardBuilder();
 		builder.go();
@@ -54,7 +59,8 @@ public class QuizCardBuilder {
 		aScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		aScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 
-		JButton nextButton = new JButton("Next Card");
+		nextButton = new JButton("Next Card");
+		cardPlay = new JButton("card play");
 
 		cardList = new ArrayList<QuizCard>();
 
@@ -73,6 +79,12 @@ public class QuizCardBuilder {
 			QuizCard card = new QuizCard(question.getText(), answer.getText());
 			cardList.add(card);
 			clearCard();
+		});
+		mainPanel.add(cardPlay);
+		cardPlay.addActionListener(ActionEvent ->{
+			cardPlayer = new QuizCardPlayer();
+			cardPlayer.go();
+			frame.setVisible(false);
 		});
 
 		JMenuBar menuBar = new JMenuBar();
@@ -102,6 +114,7 @@ public class QuizCardBuilder {
 		frame.setSize(600, 800);
 		frame.getContentPane().add(BorderLayout.CENTER, mainPanel);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 	}
 

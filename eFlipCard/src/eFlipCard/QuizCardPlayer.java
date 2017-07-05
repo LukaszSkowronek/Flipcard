@@ -30,6 +30,7 @@ public class QuizCardPlayer {
 	private int currentCardIndex;
 	private JFrame frame;
 	private JButton nextButton;
+	private JButton builder;
 	private boolean isShowAnswer;
 
 	public static void main(String[] args) {
@@ -44,16 +45,24 @@ public class QuizCardPlayer {
 
 		display = new JTextArea(10, 20);
 		display.setFont(bigFont);
-
 		display.setLineWrap(true);
 		display.setEditable(false);
+		
+		answer = new JTextArea(10, 25);
+		answer.setLineWrap(true);
+		answer.setWrapStyleWord(true);
+		answer.setFont(bigFont);
+		
 
 		JScrollPane questionScroller = new JScrollPane(display);
 		questionScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		questionScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
 		nextButton = new JButton("Show question");
+		builder = new JButton("Builder");
 		mainPanel.add(questionScroller);
 		mainPanel.add(nextButton);
+		mainPanel.add(answer);
+		mainPanel.add(builder);
 		nextButton.addActionListener(ActionEvent -> {
 			if (isShowAnswer) {
 				display.setText(currentCard.getAnswer());
@@ -68,6 +77,11 @@ public class QuizCardPlayer {
 
 				}
 			}
+		});
+		builder.addActionListener(ActionEvent -> {
+			QuizCardBuilder build = new QuizCardBuilder();
+			build.go();
+			frame.setVisible(false);
 		});
 		
 		JMenuBar menuBar = new JMenuBar();
@@ -122,5 +136,6 @@ public class QuizCardPlayer {
 		display.setText(currentCard.getQuestion());
 		nextButton.setText("Show answer");
 		isShowAnswer = true;
+		answer.setText("");
 	}
 }
