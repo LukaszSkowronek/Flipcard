@@ -44,18 +44,14 @@ public class QuizCardBuilder {
 		question.setWrapStyleWord(true);
 		question.setFont(bigFont);
 
-		JScrollPane qScroller = new JScrollPane(question);
-		qScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		qScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane qScroller = createScroller(question);
 
 		answer = new JTextArea(10, 25);
 		answer.setLineWrap(true);
 		answer.setWrapStyleWord(true);
 		answer.setFont(bigFont);
 
-		JScrollPane aScroller = new JScrollPane(answer);
-		aScroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-		aScroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		JScrollPane aScroller = createScroller(answer);
 
 		nextButton = new JButton("Next Card");
 		cardPlay = new JButton("card play");
@@ -115,6 +111,13 @@ public class QuizCardBuilder {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 
+	}
+
+	private JScrollPane createScroller(JTextArea textArea) {
+		JScrollPane scroller = new JScrollPane(textArea);
+		scroller.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		scroller.setHorizontalScrollBarPolicy(ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
+		return scroller;
 	}
 
 	private void saveFile(File file) {
