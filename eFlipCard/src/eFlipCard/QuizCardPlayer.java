@@ -82,6 +82,7 @@ public class QuizCardPlayer {
 			QuizCardBuilder build = new QuizCardBuilder();
 			build.go();
 			frame.setVisible(false);
+			frame.dispose();
 		});
 		
 		JMenuBar menuBar = new JMenuBar();

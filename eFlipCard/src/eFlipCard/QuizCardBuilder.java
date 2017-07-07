@@ -2,7 +2,6 @@ package eFlipCard;
 
 import java.awt.BorderLayout;
 import java.awt.Font;
-import java.awt.event.WindowEvent;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
@@ -29,7 +28,6 @@ public class QuizCardBuilder {
 	private JFrame frame;
 	private JButton cardPlay;
 	private JButton nextButton;
-	private QuizCardBuilder builder;
 	private QuizCardPlayer cardPlayer;
 	
 	public static void main(String[] args) {
@@ -85,6 +83,7 @@ public class QuizCardBuilder {
 			cardPlayer = new QuizCardPlayer();
 			cardPlayer.go();
 			frame.setVisible(false);
+			frame.dispose();
 		});
 
 		JMenuBar menuBar = new JMenuBar();
